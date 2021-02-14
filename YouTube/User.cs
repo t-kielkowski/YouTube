@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Channels;
 
 namespace YouTube
 {
@@ -6,7 +7,6 @@ namespace YouTube
     {
         public string Name;
         public int Id;
-        public event EventHandler<SubscribedChannelsEventArgs> SubscribedChannels;
 
         public User(string name, int id)
         {
@@ -16,7 +16,13 @@ namespace YouTube
 
         public void SubscribeChannel(Channel channel)
         {
-            SubscribedChannels.Invoke(this, new SubscribedChannelsEventArgs() {UserName = this.Name, Id = this.Id});
+            channel.ReleasedFilm += OnReleasedFilm;
+        }
+
+        public void OnReleasedFilm(object? sender, ReleasedFilmEventArgs e)
+        {
+            Console.WriteLine(
+                $"Użytkownik {Name} otrzymał powiadomienie o nowym filmie {e._Name}, numer subskrypcji {++e._NumberOfSubscriptions}");
         }
     }
 }

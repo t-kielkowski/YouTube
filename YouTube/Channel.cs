@@ -12,7 +12,8 @@ namespace YouTube
         public string Name;
         public int Id;
         public int ViewCounter;
-        public static int NumberOfSubscriptions = 0;
+        public int NumberOfSubscriptions = 0;
+        public event EventHandler<ReleasedFilmEventArgs> ReleasedFilm;
 
         public Channel(string name, int id)
         {
@@ -26,11 +27,18 @@ namespace YouTube
             ViewCounter++;
         }
 
-        public void PublishMovie(object sender, SubscribedChannelsEventArgs e)
+        public void PublishMovie()
         {
-            NumberOfSubscriptions++;
-            if (e.Id % 2 == 0) ViewMovie(e.Id);
-            Console.WriteLine($"Użytkownik {e.UserName} o Id: {e.Id} otrzymał powiadomienie o nowym filmie");
+            OnReleasedFilm(new ReleasedFilmEventArgs());
+        }
+
+        public void OnReleasedFilm(ReleasedFilmEventArgs e)
+        {
+            ReleasedFilm?.Invoke(this,
+                new ReleasedFilmEventArgs()
+                {
+                    _Name = Name, _Id = Id, _ViewCounter = ViewCounter, _NumberOfSubscriptions = NumberOfSubscriptions
+                });
         }
     }
 }

@@ -4,8 +4,10 @@ using System.Runtime.CompilerServices;
 
 namespace YouTube
 {
-   class Program
+    class Program
     {
+        #region RandomString
+
         public static string RandomString()
         {
             var size = new Random();
@@ -18,21 +20,25 @@ namespace YouTube
                     .ToArray());
             return randomString;
         }
-        
+
+        #endregion
+
         static void Main(string[] args)
         {
             User[] Users = new User[10];
-            var Channel = new Channel("RS Elektronika", 7);
-
-            for (int i = 0; i < Users.Length; i++)
+            var channel = new Channel("RS Elektronika", 7);
+            
+            for (int i = 0; i < Users.Length;  i++)
             {
                 Users[i] = new User(RandomString(), i);
-                Users[i].SubscribedChannels += Channel.PublishMovie;
-                Users[i].SubscribeChannel(Channel);
+                Users[i].SubscribeChannel(channel);
             }
-
+            channel.PublishMovie();
+            channel.ViewMovie(5);
+            
             Console.WriteLine();
-            Console.WriteLine(Channel.View());
+            Console.WriteLine(channel.View());
+            
 
         }
     }
