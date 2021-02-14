@@ -17,7 +17,6 @@ namespace YouTube
         public void SubscribeChannel(Channel channel)
         {
             channel.ReleasedFilm += OnReleasedFilm;
-            channel.ViewMovie(5);
             ++channel.NumberOfSubscriptions;
         }
 

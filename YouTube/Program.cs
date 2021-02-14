@@ -33,9 +33,11 @@ namespace YouTube
                 Users[i] = new User(RandomString(), i);
                 Users[i].SubscribeChannel(channel);
             }
+            
             channel.PublishMovie();
             channel.ViewMovie(5);
-            
+            channel.ViewMovie(5);
+
             Console.WriteLine();
             Console.WriteLine(channel.View());
             
