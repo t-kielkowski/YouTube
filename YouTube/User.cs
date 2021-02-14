@@ -17,12 +17,14 @@ namespace YouTube
         public void SubscribeChannel(Channel channel)
         {
             channel.ReleasedFilm += OnReleasedFilm;
+            channel.ViewMovie(5);
+            ++channel.NumberOfSubscriptions;
         }
 
         public void OnReleasedFilm(object? sender, ReleasedFilmEventArgs e)
         {
             Console.WriteLine(
-                $"Użytkownik {Name} otrzymał powiadomienie o nowym filmie {e._Name}, numer subskrypcji {++e._NumberOfSubscriptions}");
+                $"Użytkownik {Name} otrzymał powiadomienie o nowym filmie {e._Name}");
         }
     }
 }
